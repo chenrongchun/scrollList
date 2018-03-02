@@ -1,0 +1,78 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>鼠标左右移动</title>
+</head>
+
+<body>
+
+<script language="javascript" type="text/javascript" src="jquery-1.7.1.min.js"></script>
+
+<style>
+*{padding:0 0;margin:0 0;}
+li{list-style:none;}
+.mouseover_box{width:280px;height:600px;position:relative;margin:100px auto 10px;border:1px solid #000;overflow:hidden;cursor:pointer;}
+.mouseover_box ul{position:absolute;top:0px;left:0px;}
+.mouseover_box ul li{float:left;width:280px;height:180px;margin:0 0;}
+.mouseover_box ul li img{width:280px;}
+p{text-align:center;}
+</style>
+<script>
+$(function(){
+	
+	moveing_Y(".mouseover_box",500)
+	
+	
+})
+
+function moveing_Y(classname,boxY){/*classname为父级divclassname，boxY为父级div的高度*/
+	var boxY = boxY;
+	var box_class = classname;
+	$(box_class).css({"height":boxY})
+	var box_h=180*$(".mouseover_box ul li").length;
+	$(box_class + " ul").css({"height":box_h})
+	
+	$(box_class).mouseover(function(e){
+		var this_t = (e.pageY - $(box_class).offset().top)/boxY;
+		var top_t = box_h-boxY;
+		var ul_t=-(top_t*this_t);
+		$(box_class + " ul").css({"top":ul_t});
+		$(box_class).mousemove(function(e){
+			var this_t = (e.pageY - $(box_class).offset().top)/boxY;
+			var top_t = box_h-boxY;
+			var ul_t=-(top_t*this_t);
+			if(ul_t<-top_t){
+				ul_t=-top_t;
+			}
+			if(ul_t>0){
+				ul_t=0;
+			}
+			$(box_class + " ul").css({"top":ul_t});
+		})
+	})
+}
+
+</script>
+<div class="mouseover_box">
+	<ul>
+    	<li><img src="images/1.jpg"></li>
+        <li><img src="images/2.jpg"></li>
+        <li><img src="images/3.jpg"></li>
+        <li><img src="images/4.jpg"></li>
+        <li><img src="images/5.jpg"></li>
+        <li><img src="images/6.jpg"></li>
+        <li><img src="images/7.jpg"></li>
+        <li><img src="images/8.jpg"></li>
+        <li><img src="images/9.jpg"></li>
+        <li><img src="images/10.jpg"></li>
+        <li><img src="images/11.jpg"></li>
+        <li><img src="images/12.jpg"></li>
+    </ul>
+</div>
+
+<p>鼠标上下移动</p>
+
+
+</body>
+</html>
